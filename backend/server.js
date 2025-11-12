@@ -205,13 +205,25 @@ async function authMiddleware(req, res, next) {
 // adminAuth just re-uses authMiddleware
 const adminAuth = authMiddleware;
 
-// --- Connect to Mongo ---
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eventdb', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Mongo connected.');
-}).catch(err => console.error('Mongo connect err', err));
+// --- Replace your current mongoose.connect(...) with this ---
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/eventdb';
+
+async function connectDB() {
+  if (!process.env.MONGODB_URI) {
+    console.warn('⚠️  Warning: MONGODB_URI not set. Using fallback to local Mongo:', MONGO_URI);
+  }
+  try {
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('✅ MongoDB connected');
+  } catch (err) {
+    console.error('❌ Mongo connect err', err);
+    throw err; // ensure startup aborts if DB can't connect
+  }
+}
+
 
 // --- Utility: YouTube embed normalization ---
 function toYouTubeEmbed(url) {
@@ -253,6 +265,12 @@ app.use((req, res, next) => {
   console.log(`[REQ] ${req.method} ${req.originalUrl}`);
   next();
 });
+
+// --- Health route for uptime checks ---
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', time: Date.now() });
+});
+
 
 // --- Auth routes ---
 
@@ -824,7 +842,19 @@ app.post('/api/content/reset', adminAuth, async (req, res) => {
 });
 
 // Start server
+// --- Start server only after DB connects ---
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}\nhttp://localhost:${PORT}/api/content`));
+(async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}\nhttp://localhost:${PORT}/api/content`);
+    });
+  } catch (err) {
+    console.error('Server startup aborted due to DB error', err);
+    process.exit(1);
+  }
+})();
+
 
 module.exports = app;
