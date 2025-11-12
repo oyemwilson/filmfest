@@ -21,10 +21,11 @@ const HeroSection = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-10xl text-left">
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-[4rem] lg:text-[5rem] xl:text-[7rem] font-bold text-white leading-tight mb-6">
-              <span className="block">Inspiring Sustainability</span>
-              <span className="block">Through the Lens...</span>
-            </h1>
+<h1 className="text-4xl sm:text-[4rem] lg:text-[5rem] xl:text-[7rem] font-bold text-white leading-none mb-4">
+  <span className="block">Inspiring Sustainability</span>
+  <span className="block -mt-2 sm:-mt-4">Through the Lens...</span>
+</h1>
+
 
             {/* Buttons Container */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">

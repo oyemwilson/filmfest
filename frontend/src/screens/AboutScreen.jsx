@@ -3,7 +3,7 @@ import React from 'react';
 function AboutScreen() {
   return (
     <div className='text-green-200'>
-      <section className='pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28'>
+      <section className='my-[6.5rem]'>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-5xl mx-auto">
             <div className=" text-center mb-[5rem]">
@@ -39,7 +39,7 @@ function AboutScreen() {
             </div>
             <div className=" text-center my-[3rem]">
               <div className="relative inline-block">
-                <h2 className="px-32 py-3 text-2xl font-bold text-white flex items-center gap-2 bg-[rgba(253,105,37,1)]">
+                <h2 className="md:px-32 px-16 py-3 text-2xl font-bold text-white flex items-center gap-2 bg-[rgba(253,105,37,1)]">
 
                   Festival Objectives
                 </h2>
@@ -72,7 +72,7 @@ function AboutScreen() {
           <div className="flex center justify-start items-centerflex-col sm:flex-row gap-4 sm:gap-6 mt-5 max-w-5xl mx-auto ">
             {/* Get Tickets Button */}
             <button
-              className="px-8 md:px-24 sm:px-16 py-4  text-lg font-semibold text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
+              className="px-5 md:px-24 sm:px-16 py-4  text-lg font-semibold text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
               style={{ backgroundColor: 'rgba(38, 189, 226, 1)' }}
               onMouseEnter={(e) => {
                 e.target.style.backgroundColor = 'rgba(38, 189, 226, 0.9)';
@@ -86,7 +86,7 @@ function AboutScreen() {
 
             {/* Submit Film Button */}
             <button
-              className="px-8 md:px-24 sm:px-16 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
+              className="px-5 md:px-24 sm:px-16 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
               style={{ backgroundColor: 'rgba(252, 195, 11, 1)' }}
               onMouseEnter={(e) => {
                 e.target.style.backgroundColor = 'rgba(252, 195, 11, 0.9)';

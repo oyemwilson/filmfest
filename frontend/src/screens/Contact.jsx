@@ -4,13 +4,12 @@ import { Phone, Mail } from "lucide-react";
 
 /**
  * ContactForm
+ * - Integrated with FormBackend for form submissions
  * - Centered card with border: 1px solid rgba(197,25,45,1)
  * - Heading "Get in Touch" colored rgba(197,25,45,1)
  * - Send button background rgba(252,195,11,1)
  * - Phone/Email label color rgba(197,25,45,1) and their values black
  * - Simple client-side validation + success message
- *
- * Tailwind is used for layout; exact colors are applied inline to ensure they match.
  */
 
 export default function ContactForm() {
@@ -27,6 +26,9 @@ export default function ContactForm() {
     const brandRed = "rgba(197, 25, 45, 1)";
     const sendYellow = "rgba(252, 195, 11, 1)";
     const brandOrange = "rgba(253,105,37,1)";
+
+    // Replace this with your actual FormBackend form ID
+    const FORMBACKEND_FORM_ID = "your-formbackend-form-id-here";
 
     const validate = () => {
         const e = {};
@@ -45,23 +47,51 @@ export default function ContactForm() {
         setStatus("");
     };
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
         if (!validate()) return;
-        // simulate send
+        
         setStatus("sending");
-        setTimeout(() => {
-            setStatus("sent");
-            // reset
-            setForm({ name: "", email: "", phone: "", source: "", message: "" });
-            setErrors({});
-            setTimeout(() => setStatus(""), 4000);
-        }, 800);
+        
+        try {
+            // FormBackend API submission
+            const response = await fetch(`https://formbackend.com/f/${FORMBACKEND_FORM_ID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    phone: form.phone,
+                    source: form.source,
+                    message: form.message,
+                    // Optional: Add timestamp or other metadata
+                    _subject: `New Contact Form Submission from ${form.name}`,
+                    _replyto: form.email, // For auto-reply functionality
+                })
+            });
+
+            if (response.ok) {
+                setStatus("sent");
+                // Reset form
+                setForm({ name: "", email: "", phone: "", source: "", message: "" });
+                setErrors({});
+                // Auto-clear success message after 4 seconds
+                setTimeout(() => setStatus(""), 4000);
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            setStatus("error");
+            setErrors({ submit: "Failed to send message. Please try again." });
+        }
     };
 
     return (
         <div className="py-2 ">
-            <div className=" text-center my-[5rem]">
+            <div className=" text-center my-[6.5rem]">
                 <div className="relative inline-block">
                     <h2 className="px-20 py-3 text-2xl font-bold text-white flex items-center gap-2 bg-[rgba(38,189,226,1)]">
                         Contact Us
@@ -173,20 +203,44 @@ export default function ContactForm() {
                             </select>
                         </div>
 
+                        {/* MESSAGE */}
+                        <div>
+                            <label htmlFor="message" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                                <span>Message (Optional)</span>
+                            </label>
+                            <textarea
+                                id="message"
+                                value={form.message}
+                                onChange={handleChange("message")}
+                                className="w-full p-3 border rounded border-gray-200"
+                                placeholder="Your message or feedback..."
+                                rows="4"
+                            />
+                        </div>
+
                         {/* SEND BUTTON */}
                         <div className="flex items-center justify-center mt-2">
                             <button
                                 type="submit"
                                 disabled={status === "sending"}
                                 style={{ background: sendYellow }}
-                                className="px-6 py-3 rounded font-semibold shadow-sm hover:shadow-md transition-all w-full"
+                                className="px-6 py-3 rounded font-semibold shadow-sm hover:shadow-md transition-all w-full disabled:opacity-70"
                             >
                                 <span style={{ color: "white" }}>{status === "sending" ? "Sending..." : "Send"}</span>
                             </button>
                         </div>
 
+                        {/* Status Messages */}
                         {status === "sent" && (
-                            <div className="text-center text-green-600 mt-2">Thanks — your message was sent.</div>
+                            <div className="text-center text-green-600 mt-2">
+                                Thanks — your message was sent successfully!
+                            </div>
+                        )}
+                        
+                        {status === "error" && (
+                            <div className="text-center text-red-600 mt-2">
+                                {errors.submit || "Failed to send message. Please try again."}
+                            </div>
                         )}
                     </form>
 
@@ -195,7 +249,7 @@ export default function ContactForm() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
 
                             {/* PHONE */}
-                            <div className="flex items-center justify-center gap-3">
+                            <div className="flex items-center justify-left md:justify-center gap-3">
                                 {/* Custom Phone SVG */}
                                 <svg
                                     width="29"
@@ -223,7 +277,7 @@ export default function ContactForm() {
 
 
                             {/* EMAIL */}
-                            <div className="flex items-center justify-center gap-3">
+                            <div className="flex items-center justify-left md:justify-center gap-3">
                                 {/* Custom Email SVG */}
                                 <svg
                                     width="25"
