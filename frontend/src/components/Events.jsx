@@ -313,13 +313,13 @@ const EventPage = () => {
                 <>
                   <button
                     onClick={prevPhoto}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2  hover:bg-black p-2 rounded-full transition-all "
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2  hover:bg-black/30 p-2 rounded-full transition-all "
                   >
                     <ChevronLeft className="md:w-32 md:h-32 w-10 h-10  text-white" />
                   </button>
                   <button
                     onClick={nextPhoto}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2  hover:bg-black p-2 rounded-full  transition-all "
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2  hover:bg-black/30 p-2 rounded-full  transition-all "
                   >
                     <ChevronRight className="md:w-32 md:h-32 w-10 h-10 text-white" />
                   </button>
@@ -455,7 +455,7 @@ const EventPage = () => {
   </div>
 )}
 
-<div className="flex justify-center w-full mb-20 mt-[15rem]">
+<div className="flex justify-center w-full mb-20 mt-[7rem] md:mt-[15rem]">
   <img
     src="/images/logo.png"
     alt="Logo"
