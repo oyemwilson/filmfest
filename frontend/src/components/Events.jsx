@@ -342,13 +342,14 @@ const EventPage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="text-center md:text-start">
                       <div className="mx-auto md:mx-0 w-full max-w-xs md:max-w-none">
-                        <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden w-full">
-                          <img
-                            src={award.winner.photo}
-                            alt={award.winner.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+<div className="bg-gray-200 rounded-lg overflow-hidden w-full">
+  <img
+    src={award.winner.photo}
+    alt={award.winner.name}
+    className="w-full h-full object-cover"
+  />
+</div>
+
                       </div>
                       <p className="font-medium text-gray-700 mt-2">{award.winner.name}</p>
                       <h4 className="font-semibold text-gray-800 mb-2">Winner</h4>
@@ -356,7 +357,7 @@ const EventPage = () => {
 
                     <div className="text-center md:text-start">
                       <div className="mx-auto md:mx-0 w-full max-w-xs md:max-w-none">
-                        <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden w-full">
+                        <div className=" bg-gray-200 rounded-lg overflow-hidden w-full">
                           <img
                             src={award.firstRunnerUp.photo}
                             alt={award.firstRunnerUp.name}
@@ -370,7 +371,7 @@ const EventPage = () => {
 
                     <div className="text-center md:text-start">
                       <div className="mx-auto md:mx-0 w-full max-w-xs md:max-w-none">
-                        <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden w-full">
+                        <div className=" bg-gray-200 rounded-lg overflow-hidden w-full">
                           <img
                             src={award.secondRunnerUp.photo}
                             alt={award.secondRunnerUp.name}
