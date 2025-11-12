@@ -1,0 +1,16 @@
+{
+  "name": "my-event-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:backend": "cd backend && npm run start",
+    "dev:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run start",
+    "build:frontend": "cd frontend && npm run build",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run start:frontend\"",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
