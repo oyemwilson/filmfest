@@ -19,6 +19,7 @@ function AdminRoute() {
   return isAuthenticated ? <AdminPanel /> : <Login />;
 }
 
+
 function App() {
   return (
     <AuthProvider>
@@ -29,7 +30,11 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/about" element={<AboutScreen />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin" element={<AdminRoute />} />
+            <Route path="/admin" element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            } />
             <Route path="/contact" element={<ContactForm />} />
           </Routes>
         </main>
