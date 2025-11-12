@@ -271,6 +271,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: Date.now() });
 });
 
+// Add this route at the top of your routes:
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    service: 'FilmFest Server',
+    timestamp: new Date().toISOString()
+  });
+});
 
 // --- Auth routes ---
 
@@ -844,17 +852,10 @@ app.post('/api/content/reset', adminAuth, async (req, res) => {
 // Start server
 // --- Start server only after DB connects ---
 const PORT = process.env.PORT || 5001;
-(async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}\nhttp://localhost:${PORT}/api/content`);
-    });
-  } catch (err) {
-    console.error('Server startup aborted due to DB error', err);
-    process.exit(1);
-  }
-})();
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on ${PORT}`);
+});
 
 
 module.exports = app;

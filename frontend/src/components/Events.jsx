@@ -260,7 +260,7 @@ const EventPage = () => {
         </div>
 
         {/* Video Section */}
-        <div className="rounded-xl p-6 mb-8 ">
+        <div className="rounded-xl p-2 md:p-6 mb-8 ">
           <div className="bg-gray-200 rounded-lg overflow-hidden">
             <div className="aspect-[4/3] md:aspect-[16/9]
 ">
@@ -282,7 +282,7 @@ const EventPage = () => {
         </div>
 
         {/* Photo Gallery Section - KEEP THE ORIGINAL CAROUSEL */}
-        <div className="rounded-xl p-6 mb-8 ">
+        <div className="rounded-xl p-2 md:p-6 mb-8 ">
           <div className="mb-8 text-left">
             <div className="relative inline-block">
               <h2 className="px-12 py-3 text-2xl font-bold text-white flex items-center gap-2 bg-[rgba(63,126,68,1)]">
@@ -360,7 +360,7 @@ const EventPage = () => {
             <div className="space-y-8">
               {currentData.awards.map((award, index) => (
                 <div key={index} className=" rounded-lg p-6 pt-0 px-0">
-                  <h3 className="text-xl py-3 font-semibold text-white mb-10 text-center bg-[rgba(174,174,174,1)] relative">
+                  <h3 className="text-xl py-3 px-2 font-semibold text-white mb-10 text-center bg-[rgba(174,174,174,1)] relative">
                     {award.category}
                     <div className="absolute left-1/2 transform -translate-x-1/2 mt-4">
                       <div className="w-0 h-0 border-l-[14px] border-r-[14px] border-t-[14px] border-l-transparent border-r-transparent border-t-[rgba(174,174,174,1)]"></div>
