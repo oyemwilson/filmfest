@@ -270,8 +270,8 @@ export default function AdminPanel() {
   /* ---------- UI render ---------- */
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 flex items-center justify-center">
-        <div className="max-w-md w-full bg-white rounded-xl shadow-sm border p-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 flex items-center justify-center ">
+        <div className="max-w-md w-full bg-white rounded-xl shadow-sm border p-8 ">
           <h1 className="text-3xl font-bold mb-2">Admin Panel</h1>
           <p className="text-slate-600 mb-4">Please sign in</p>
           {message && <div className="mb-4 p-3 bg-amber-50 rounded">{message}</div>}
@@ -291,7 +291,7 @@ export default function AdminPanel() {
   const getAward = (a, k) => (a && a[k]) ? a[k] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6 mt-[7rem]">
       <div className="max-w-7xl mx-auto">
 <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
   <div className="w-full md:w-auto text-center md:text-left">

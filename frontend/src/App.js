@@ -30,11 +30,7 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/about" element={<AboutScreen />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin" element={
-              <AdminRoute>
-                <AdminPanel />
-              </AdminRoute>
-            } />
+            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/contact" element={<ContactForm />} />
           </Routes>
         </main>
