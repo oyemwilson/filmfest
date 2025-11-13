@@ -852,10 +852,17 @@ app.post('/api/content/reset', adminAuth, async (req, res) => {
 // Start server
 // --- Start server only after DB connects ---
 const PORT = process.env.PORT || 5001;
-
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server running on ${PORT}`);
-});
+(async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}\nhttp://localhost:${PORT}/api/content`);
+    });
+  } catch (err) {
+    console.error('Server startup aborted due to DB error', err);
+    process.exit(1);
+  }
+})();
 
 
 module.exports = app;
