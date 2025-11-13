@@ -260,6 +260,19 @@ async function getOrCreateContentByYear(year) {
   return doc;
 }
 
+// Self-ping to prevent sleeping (Render free tier)
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL; // Set this in Render env vars
+if (RENDER_URL) {
+  setInterval(async () => {
+    try {
+      await fetch(`${RENDER_URL}/api/health`);
+      console.log('Keep-alive ping sent');
+    } catch (err) {
+      console.error('Keep-alive ping failed:', err.message);
+    }
+  }, 14 * 60 * 1000); // Every 14 minutes
+}
+
 // Request logger (helpful while testing)
 app.use((req, res, next) => {
   console.log(`[REQ] ${req.method} ${req.originalUrl}`);
