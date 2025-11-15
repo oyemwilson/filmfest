@@ -203,6 +203,16 @@ const EventPage = () => {
 
   const currentData = contentByYear[activeYear] || { video: null, photos: [], awards: [], partners: [] };
 
+    // Preload all photos in the background
+useEffect(() => {
+  if (currentData?.photos?.length > 0) {
+    currentData.photos.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+}, [currentData]);
+
   if (loading && !currentData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -213,15 +223,7 @@ const EventPage = () => {
       </div>
     );
   }
-  // Preload all photos in the background
-useEffect(() => {
-  if (currentData?.photos?.length > 0) {
-    currentData.photos.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }
-}, [currentData]);
+
 
 
   return (
