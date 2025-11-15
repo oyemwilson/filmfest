@@ -80,6 +80,7 @@ function AboutScreen() {
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = 'rgba(38, 189, 226, 1)';
               }}
+                onClick={() => window.open("https://www.eventbrite.co.uk/e/african-sdgs-film-festival-tickets-1393665664519?aff=oddtdtcreator", "_blank")}
             >
               Get Tickets
             </button>
@@ -94,6 +95,7 @@ function AboutScreen() {
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = 'rgba(252, 195, 11, 1)';
               }}
+                onClick={() => window.open("https://filmfreeway.com/AfricanSDGsFilmFestival", "_blank")}
             >
               Submit Film
             </button>
