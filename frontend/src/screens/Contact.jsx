@@ -65,7 +65,7 @@ const handleSubmit = async (evt) => {
         formData.append("_replyto", form.email);
 
         // 🚀 Send to FormBackend (NO HEADERS, NO JSON)
-        const response = await fetch(`https://formbackend.com/f/${FORMBACKEND_FORM_ID}`, {
+        const response = await fetch(`https://www.formbackend.com/f/${FORMBACKEND_FORM_ID}`, {
             method: "POST",
             body: formData,
         });
