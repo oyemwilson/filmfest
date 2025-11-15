@@ -28,7 +28,7 @@ export default function ContactForm() {
     const brandOrange = "rgba(253,105,37,1)";
 
     // Replace this with your actual FormBackend form ID
-    const FORMBACKEND_FORM_ID = "https://www.formbackend.com/f/57c2cbb59f892793";
+    const FORMBACKEND_FORM_ID = "57c2cbb59f892793";
 
     const validate = () => {
         const e = {};
