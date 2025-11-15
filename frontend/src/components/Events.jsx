@@ -213,6 +213,16 @@ const EventPage = () => {
       </div>
     );
   }
+  // Preload all photos in the background
+useEffect(() => {
+  if (currentData?.photos?.length > 0) {
+    currentData.photos.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+}, [currentData]);
+
 
   return (
     <div className="min-h-screen bg-white py-8">
@@ -304,6 +314,7 @@ const EventPage = () => {
               >
                 <img
                   src={currentData.photos[currentPhotoIndex]}
+                   loading="lazy"
                   alt={`Event photo ${currentPhotoIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
