@@ -47,47 +47,53 @@ export default function ContactForm() {
         setStatus("");
     };
 
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-        if (!validate()) return;
-        
-        setStatus("sending");
-        
-        try {
-            // FormBackend API submission
-            const response = await fetch(`https://formbackend.com/f/${FORMBACKEND_FORM_ID}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: form.name,
-                    email: form.email,
-                    phone: form.phone,
-                    source: form.source,
-                    message: form.message,
-                    // Optional: Add timestamp or other metadata
-                    _subject: `New Contact Form Submission from ${form.name}`,
-                    _replyto: form.email, // For auto-reply functionality
-                })
+const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    if (!validate()) return;
+
+    setStatus("sending");
+
+    try {
+        // Create FormData
+        const formData = new FormData();
+        formData.append("name", form.name);
+        formData.append("email", form.email);
+        formData.append("phone", form.phone);
+        formData.append("source", form.source);
+        formData.append("message", form.message);
+        formData.append("_subject", `New Contact Form Submission from ${form.name}`);
+        formData.append("_replyto", form.email);
+
+        // 🚀 Send to FormBackend (NO HEADERS, NO JSON)
+        const response = await fetch(`https://formbackend.com/f/${FORMBACKEND_FORM_ID}`, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            setStatus("sent");
+
+            // Reset form fields
+            setForm({
+                name: "",
+                email: "",
+                phone: "",
+                source: "",
+                message: "",
             });
 
-            if (response.ok) {
-                setStatus("sent");
-                // Reset form
-                setForm({ name: "", email: "", phone: "", source: "", message: "" });
-                setErrors({});
-                // Auto-clear success message after 4 seconds
-                setTimeout(() => setStatus(""), 4000);
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            console.error('Form submission error:', error);
-            setStatus("error");
-            setErrors({ submit: "Failed to send message. Please try again." });
+            setErrors({});
+            setTimeout(() => setStatus(""), 4000);
+        } else {
+            throw new Error("Form submission failed");
         }
-    };
+    } catch (error) {
+        console.error(error);
+        setStatus("error");
+        setErrors({ submit: "Failed to send message. Please try again." });
+    }
+};
+
 
     return (
         <div className="py-2 ">
