@@ -88,55 +88,54 @@ const EventPage = () => {
   }, [isModalOpen]);
 
   // fetch list of years from backend and build availableYears (include current + next)
-  useEffect(() => {
-    let mounted = true;
-    const fetchYears = async () => {
-      setError('');
-      setLoading(true);
-      try {
-        const res = await fetch(`${API_BASE}/api/content`);
-        if (!res.ok) throw new Error(`Failed to load years (${res.status})`);
-        const list = await res.json();
+useEffect(() => {
+  let mounted = true;
 
-        const yearsNums = Array.isArray(list)
-          ? list.map(d => Number(d.year)).filter(n => !Number.isNaN(n))
-          : [];
+  const fetchYears = async () => {
+    setError('');
+    setLoading(true);
 
-        const currentYear = new Date().getFullYear();
-        const nextYear = currentYear + 1;
+    try {
+      const res = await fetch(`${API_BASE}/api/content`);
+      if (!res.ok) throw new Error(`Failed to load years (${res.status})`);
 
-        if (!yearsNums.includes(currentYear)) yearsNums.push(currentYear);
-        if (!yearsNums.includes(nextYear)) yearsNums.push(nextYear);
+      const list = await res.json();
 
-        const finalYears = Array.from(new Set(yearsNums))
-          .sort((a, b) => b - a)
-          .map(String);
+      // ✅ Years that exist in DB
+      const serverYears = Array.isArray(list)
+        ? list
+            .map(d => Number(d.year))
+            .filter(y => !Number.isNaN(y))
+        : [];
 
-        if (!mounted) return;
+      if (!serverYears.length) return;
 
-        const serverYearStrings = Array.isArray(list) ? list.map(d => String(Number(d.year))).filter(y => y && y !== 'NaN') : [];
-        setServerYears(serverYearStrings);
+      const latestServerYear = Math.max(...serverYears);
+      const nextYear = latestServerYear + 1;
 
-        setAvailableYears(finalYears);
-        setActiveYear(String(new Date().getFullYear()));
-      } catch (err) {
-        console.error('fetchYears err', err);
-        const currentYear = new Date().getFullYear();
-        const nextYear = currentYear + 1;
-        const fallback = [String(nextYear), String(currentYear)];
-        if (mounted) {
-          setAvailableYears(fallback);
-          setServerYears([]);
-          setActiveYear(String(currentYear));
-          setError('Could not load years from server');
-        }
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
-    fetchYears();
-    return () => { mounted = false; };
-  }, []);
+      // ✅ Visible years = DB years + ONE future year
+      const allYears = Array.from(
+        new Set([...serverYears, nextYear])
+      ).sort((a, b) => b - a);
+
+      if (!mounted) return;
+
+      setServerYears(serverYears.map(String));   // clickable
+      setAvailableYears(allYears.map(String));   // visible
+      setActiveYear(String(latestServerYear));   // active = latest DB year
+
+    } catch (err) {
+      console.error('fetchYears err', err);
+      if (mounted) setError('Could not load years from server');
+    } finally {
+      if (mounted) setLoading(false);
+    }
+  };
+
+  fetchYears();
+  return () => { mounted = false; };
+}, []);
+
 
   // fetch content for activeYear whenever it changes (and not already cached)
   useEffect(() => {
