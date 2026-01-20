@@ -42,7 +42,8 @@ app.use(
       "https://filmfest-1.onrender.com", // ✅ your Render frontend URL
       "http://localhost:3000",                       // ✅ optional: for local development
       "https://www.sdgafricanfilmfestival.com",                       // ✅ optional: for local development
-      "https://sdgafricanfilmfestival.com"                       // ✅ optional: for local development
+      "https://sdgafricanfilmfestival.com",                       // ✅ optional: for local development
+      "https://test.chanjadatti.com"                       // ✅ optional: for local development
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
