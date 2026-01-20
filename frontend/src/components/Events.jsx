@@ -229,46 +229,73 @@ useEffect(() => {
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Year Tabs */}
-        <div className="flex justify-start mb-12">
-          <div className="flex space-x-4">
-            {availableYears.map((year) => {
-              const cached = contentByYear[year];
-              const cachedHasContent = !!cached && (
-                (cached.photos && cached.photos.length > 0) ||
-                !!cached.video ||
-                (cached.awards && cached.awards.length > 0) ||
-                (cached.partners && cached.partners.length > 0)
-              );
+{/* Year Tabs */}
+<div className="mb-12">
+  <div
+    className="
+      flex
+      overflow-x-auto
+      whitespace-nowrap
+      gap-4
+      px-4
+      scrollbar-hide
+      scroll-smooth
+    "
+  >
+    {availableYears.map((year) => {
+      const cached = contentByYear[year];
+      const cachedHasContent =
+        !!cached &&
+        (
+          (cached.photos && cached.photos.length > 0) ||
+          !!cached.video ||
+          (cached.awards && cached.awards.length > 0) ||
+          (cached.partners && cached.partners.length > 0)
+        );
 
-              const hasData = serverYears.includes(year) || cachedHasContent;
-              const isActive = activeYear === year;
+      const hasData = serverYears.includes(year) || cachedHasContent;
+      const isActive = activeYear === year;
 
-              return (
-                <div key={year} className="ml-10 flex flex-col items-center">
-                  <button
-                    onClick={() => hasData && handleYearChange(year)}
-                    className={` px-12 py-3 text-lg font-semibold rounded-lg relative transition-all duration-300 ${isActive
-                      ? 'text-white bg-[rgba(162,25,66,1)]'
-                      : hasData
-                        ? 'text-gray-600 bg-gray-100 hover:bg-gray-200'
-                        : 'text-gray-400 bg-gray-50 cursor-not-allowed'
-                      }`}
-                    disabled={!hasData}
-                  >
-                    {year}
-                  </button>
+      return (
+        <div
+          key={year}
+          className="flex flex-col items-center shrink-0"
+        >
+          <button
+            onClick={() => hasData && handleYearChange(year)}
+            disabled={!hasData}
+            className={`
+              px-10 py-3
+              text-lg font-semibold
+              rounded-lg
+              whitespace-nowrap
+              transition-all duration-300
+              ${
+                isActive
+                  ? 'text-white bg-[rgba(162,25,66,1)]'
+                  : hasData
+                    ? 'text-gray-600 bg-gray-100 hover:bg-gray-200'
+                    : 'text-gray-400 bg-gray-50 cursor-not-allowed'
+              }
+            `}
+          >
+            {year}
+          </button>
 
-                  {isActive && (
-                    <div className="mt-1 flex justify-center w-full">
-                      <div className="w-0 h-0 border-l-[16px] border-r-[16px] border-t-[16px] border-l-transparent border-r-transparent border-t-[rgba(162,25,66,1)]"></div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          {isActive && (
+            <div className="mt-1 flex justify-center w-full">
+              <div className="w-0 h-0 border-l-[16px] border-r-[16px] border-t-[16px]
+                border-l-transparent border-r-transparent
+                border-t-[rgba(162,25,66,1)]"
+              />
+            </div>
+          )}
         </div>
+      );
+    })}
+  </div>
+</div>
+
 
         {/* Video Section */}
         <div className="rounded-xl p-2 md:p-6 mb-8 ">
