@@ -4,17 +4,17 @@ import React from 'react';
 const HeroSection = () => {
   return (
     <>
-    <section className="relative h-[90vh] sm:h-[90vh] w-full overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url("/images/banner.jpg")',
-        }}
-      >
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      </div>
+      <section className="relative h-[90vh] sm:h-[90vh] w-full overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("/images/banner.jpg")',
+          }}
+        >
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
 
         {/* Content Container */}
         <div className="relative h-full flex items-end pb-48 sm:pb-40 lg:pb-32">
