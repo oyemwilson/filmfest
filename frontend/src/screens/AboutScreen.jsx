@@ -80,7 +80,8 @@ function AboutScreen() {
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = 'rgba(38, 189, 226, 1)';
               }}
-                onClick={() => window.open("https://www.eventbrite.co.uk/e/african-sdgs-film-festival-2026-tickets-1994259978279https://www.eventbrite.com/e/african-sdgs-film-festival-2026-tickets-1994313667866?aff=oddtdtcreator", "_blank")}
+                onClick={() => window.open("https://www.eventbrite.com/e/african-sdgs-film-festival-2026-tickets-1994313667866?aff=oddtdtcreator", "_blank")}
+
             >
               Get Tickets
             </button>
